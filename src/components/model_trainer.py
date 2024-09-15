@@ -2,7 +2,7 @@ import os
 import sys
 from dataclasses import dataclass
 
-from catboost import CatBoostRegressor
+
 from sklearn.ensemble import AdaBoostRegressor, GradientBoostingRegressor, RandomForestRegressor
 from sklearn.linear_model import LinearRegression
 from sklearn.metrics import r2_score
@@ -39,7 +39,6 @@ class ModelTrainer:
                 "Linear Regression": LinearRegression(),
                 "K-Neighbours": KNeighborsRegressor(),
                 "XGBoost": XGBRegressor(),
-                "Catboost": CatBoostRegressor(verbose = 0),
                 "Adaboost":AdaBoostRegressor()
             }
 
@@ -71,11 +70,6 @@ class ModelTrainer:
                     'learning_rate':[0.1, 0.01, 0.05, 0.0001],
                     "n_estimators":[8, 16, 32, 64, 128, 256]
                 },
-                "Catboost":{
-                    'depth': [6,8,10],
-                    'learning_rate': [0.01, 0.05, 0.1],
-                    'iterations': [30, 50, 100]
-                },
                 "Adaboost":{
                     'learning_rate':[.1,.01,0.5,.001],
                     'loss':['linear','square','exponential'],
@@ -105,6 +99,7 @@ class ModelTrainer:
             
             predicted = best_model.predict(X_test)
             r2 = r2_score(y_test, predicted)
+            print(f"r2_score = {r2}")
             return r2
         except Exception as e:
             raise CustomException(e, sys)
