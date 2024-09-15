@@ -87,6 +87,7 @@ class ModelTrainer:
 
             # to get the best model from dictionary
             best_model_score = max(sorted(model_report.values()))
+            print(f"best_model_score = {best_model_score}")
 
             # To get the best model name from dictionary
             best_model_name = list(model_report.keys())[list(model_report.values()).index(best_model_score)]
